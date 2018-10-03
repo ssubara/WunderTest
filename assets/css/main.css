@@ -1,0 +1,24 @@
+.logo {
+	
+	margin: 1rem;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.page-footer {
+	height: 40px;
+	position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #334146;
+    color: white;
+    text-align: center;
+}
+
+.page-footer p {
+	
+    text-align: center;
+}

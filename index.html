@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Wunder Test app</title>
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+<body class="text-center">
+	<header>
+		<img class="logo" src="assets/img/logo.svg">
+		<br>
+        <nav>
+            Registration
+        </nav>
+    </header>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-md-12">
+		    <section>
+		        <form class="form" action="/register" method="post">
+				    <!-- form header -->
+				    <div class="form-header">
+				    	<h1>Create Account</h1>
+				    </div>
+				    <!-- form body -->
+				    <div class="form-body col-md-12">
+				    	<!-- step 1 -->
+				    	<div id="part1">
+					    	<label for="firstname" class="sr-only">First Name</label>
+						    <input type="text" id="firstname" class="form-control" placeholder="First name" required autofocus>
+						    <br>
+						    <label for="lastname" class="sr-only">Last Name</label>
+						    <input type="text" id="lastname" class="form-control" placeholder="Last name" required>
+						    <br>
+						    <label for="telephone" class="sr-only">Telephone</label>
+						    <input id="telephone" type="tel" class="form-control" pattern="[+ 0-9]{14}" placeholder="Phone number" required >
+					    </div>
+					    <br>
+					    <!-- end step 1 -->
+					    <!-- step 2 -->
+					    <div id="part2">
+					    	<div class="col-md-12">
+							    <div class="inline col-md-8">
+						    	<label for="firstname" class="sr-only">Address</label>
+							    <input type="text" id="street" class="form-control" placeholder="Street" required>
+							    </div>
+							    <div class="inline col-md-3">
+							    <label for="lastname" class="sr-only">House number</label>
+							    <input type="text" id="housenumber" class="form-control" placeholder="House number" required>
+							    </div>
+					    	</div>
+					    	<br>
+					    	<div class="col-md-12">
+							    <div class="inline col-md-3">
+						    	<label for="zipcode" class="sr-only">Zip code</label>
+							    <input type="text" id="zipcode" class="form-control" placeholder="Zip Code" required>
+							    </div>
+							    <div class="inline col-md-8">
+							    <label for="city" class="sr-only">City</label>
+							    <input type="text" id="city" class="form-control" placeholder="City" required>
+							    </div>
+							</div>
+					    </div>
+					    <br>
+					    <!-- end step 2 -->
+					    <!-- step 3 -->
+				    	<div id="part3">
+					    	<label for="accountowner" class="sr-only">Account owner</label>
+						    <input type="text" id="accountowner" class="form-control" placeholder="Account owner" required autofocus>
+						    <br>
+						    <label for="iban" class="sr-only">IBAN</label>
+						    <input type="number" id="iban" class="form-control" placeholder="IBAN" required>
+						    <br>   
+					    </div>
+					    <br>
+					    <!-- end step 3 -->
+					    <!-- step 4 -->
+				    	<div id="part4">
+					    	<div class="succes">Thanks</div>
+					    	<div>Your PaymentDataId is: </div>
+					    </div>
+					    <br>
+					    <!-- end step 4 -->
+				    </div>
+				   
+				    <!-- form footer -->
+				    <div class="form-footer">
+				    	 <button class="btn btn-lg btn-primary btn-block" type="submit">Next</button>
+				    </div>
+				</form>
+				<br>
+		    </section>
+		    </div>
+	    </div>
+	</div>
+	<footer class="page-footer">
+        <p>Copyright Slaven Subara 2018.</p>
+	</footer>
+</body>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+
+</html>
