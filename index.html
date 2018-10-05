@@ -5,31 +5,36 @@
 	<title>Wunder Test app</title>
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+	<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.steps.js"></script>
+
 </head>
 <body class="text-center">
 	<header>
 		<img class="logo" src="assets/img/logo.svg">
 		<br>
         <nav>
-            Registration
+            Test
         </nav>
     </header>
     <div class="container">
     	<div class="row">
     		<div class="col-md-12">
-		    <section>
-		        <form class="form" id="localStorage" action="/register" method="post">
-				    <!-- form header -->
-				    <div class="form-header">
-				    	<h1>Create Account</h1>
-				    </div>
-				    <!-- form body -->
-				    <div class="form-body col-md-12">
-				    	<!-- step 1 -->
+    			<section>
+    				<form class="form" id="localStorage" action="/register" method="post">
+	    				<!-- form header -->
+					    <div class="form-header">
+					    	<h1>Registration Account</h1>
+					    </div>
+					    <!-- form body -->
+		    			<div class="divs active" id="first">
+					    <!-- step 1 -->
 				    	<fieldset>
 				    	<div class="tab" id="part1">
 					    	<label for="firstname" class="sr-only">First Name</label>
-						    <input type="text" name="firstname" id="firstname" class="form-control stored" placeholder="First name" onkeyup="saveValue(this);" required autofocus>
+						    <input type="text" name="firstname" id="firstname" class="form-control stored" placeholder="First name" onkeyup="saveValue(this);"  required="" autofocus>
 						    <br>
 						    <label for="lastname" class="sr-only">Last Name</label>
 						    <input type="text" id="lastname" class="form-control" placeholder="Last name" onkeyup="saveValue(this);" required>
@@ -38,11 +43,13 @@
 						    <input id="telephone" type="text" class="form-control" pattern="[+ 0-9]{14}" placeholder="Phone number" onkeyup="saveValue(this);" required>
 					    </div>
 					    <br>
-					    <input type="button" name="next" class="next action-button" value="Next" />
-						</fieldset>
-					    <!-- end step 1 -->
-					    <!-- step 2 -->
-					    <fieldset>
+					    <input type="button" name="next" id="btn-first" class="next action-button" value="Next" />
+						</fieldset>	    
+						</div>
+						<!-- end step 1 -->
+						<!-- step 2 -->
+						<div class="divs" id="second"> 
+					    <fieldset id="2">
 					    <div class="tab" id="part2">
 					    	<div class="col-md-12">
 							    <div class="inline col-md-8">
@@ -68,10 +75,12 @@
 					    </div>
 					    <br>
 					    <input type="button" name="previous" class="previous action-button" value="Previous" />
-						<input type="button" name="next" class="next action-button" value="Next" />
+						<input type="button" name="next" id="btn-second" class="next action-button" value="Next" />
 					    </fieldset>
-					    <!-- end step 2 -->
-					    <!-- step 3 -->
+						</div>
+						<!-- end step 2 -->
+						<!-- step 3 -->
+						<div class="divs" id="third">
 					    <fieldset>
 				    	<div class="tab" id="part3">
 					    	<label for="accountowner" class="sr-only">Account owner</label>
@@ -83,26 +92,25 @@
 					    </div>
 					    <br>
 					    <input type="button" name="previous" class="previous action-button" value="Previous" />
-					    <input type="button" name="next" class="next action-button" value="Next" />
+					    <input type="submit" name="next" id="btn-third" class="next action-button" value="Next" />
 					    </fieldset>
-					    <!-- end step 3 -->
-					    <!-- step 4 -->
+						</div>
+						<!-- end step 3 -->
+						<!-- step 3 -->
+						<div class="divs" id="forth">
 					    <fieldset>
 				    	<div class="tab" id="part4">
 					    	<div class="succes">Thanks</div>
 					    	<div>Your PaymentDataId is: </div>
+						    <br>   
+						    <input type="button" name="next" id="btn-third" class="next action-button" value="Next" />
 					    </div>
 					    <br>
-					    <input type="button" name="previous" class="previous action-button" value="Previous" />
-					    <input type="submit" name="submit" class="submit action-button" value="Submit" />
 					    </fieldset>
-					    <!-- end step 4 -->
-				    </div>
-				   
-				    
-				</form>
-				<br>
-		    </section>
+						</div>
+						<!-- end step 3 -->
+					</form>
+				</section>
 		    </div>
 	    </div>
 	</div>
@@ -111,9 +119,9 @@
 	</footer>
 </body>
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/js/jquery.easing.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.steps.js"></script>
+
 
 </html>

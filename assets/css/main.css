@@ -3,6 +3,14 @@ html {
     
 }
 
+body
+{
+  margin:0 auto;
+  padding:0;
+  text-align:center;
+  
+}
+
 .logo {
 	
 	margin: 1rem;
@@ -51,8 +59,17 @@ margin: 0 10%;
 position: absolute;
 }
 /*Hide all except first fieldset*/
-#localStorage  fieldset:not(:first-of-type) {
-display: none;
+
+.divs fieldset:not(:first-of-type) {
+    display: none;
+}
+
+.divs {
+    display: none;
+}
+
+.active {
+    display: block;  
 }
 
 /*buttons*/
