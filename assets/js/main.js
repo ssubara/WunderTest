@@ -63,9 +63,24 @@ $(document).ready(function() {
 
 /* END Makes form steps and save current step in local storage */
 
-var form = document.getElementById("localStorage");
+/* Submit form  */
 
+var form = document.getElementById("localStorage");
 document.getElementById("btn-third").addEventListener("click", function () {
   form.submit();
 });
+
+/* END Submit form  */
+
+/* Reset local storage, send form at first step  */
+
+$(document).ready(function() {
+    $('#btn-four').click(function(e) {
+        e.preventDefault();
+        localStorage.clear();
+        location.reload();
+    });
+});
+/* END Reset local storage  */
+
 
