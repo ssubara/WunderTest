@@ -65,7 +65,7 @@ $(document).ready(function() {
 
 /* Submit form  */
 
-var form = document.getElementById("localStorage");
+var form = document.getElementById("localStorageForm");
 document.getElementById("btn-third").addEventListener("click", function () {
   form.submit();
 });
@@ -78,9 +78,13 @@ $(document).ready(function() {
     $('#btn-four').click(function(e) {
         e.preventDefault();
         localStorage.clear();
-        location.reload();
+        window.location.href = '';
+        
+        
+        
     });
 });
 /* END Reset local storage  */
+
 
 

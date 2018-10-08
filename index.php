@@ -1,41 +1,72 @@
 <?php
 include('_inc/connection.php');
-	if((isset($_POST['firstname'])&& $_POST['lastname'] !=''))
+	if((isset($_POST['firstname'])&& $_POST['lastname'] !='')&&(isset($_POST['accountowner'])&& $_POST['iban'] !=''))
 	{
 	
-	$firstname = $con->real_escape_string($_POST['firstname']);
-	$lastname = $con->real_escape_string($_POST['lastname']);
-	$telephone = $con->real_escape_string($_POST['telephone']);
-	$street = $con->real_escape_string($_POST['street']);
-	$housenumber = $con->real_escape_string($_POST['housenumber']);
-	$zipcode = $con->real_escape_string($_POST['zipcode']);
-	$city = $con->real_escape_string($_POST['city']);
-	$accountowner = $con->real_escape_string($_POST['accountowner']);
-	$iban = $con->real_escape_string($_POST['iban']);
-	
+	$firstname = mysqli_real_escape_string($con, $_POST['firstname']);
+	$lastname = mysqli_real_escape_string($con, $_POST['lastname']);
+	$telephone = mysqli_real_escape_string($con, $_POST['telephone']);
+	$street = mysqli_real_escape_string($con, $_POST['street']);
+	$housenumber = mysqli_real_escape_string($con, $_POST['housenumber']);
+	$zipcode = mysqli_real_escape_string($con, $_POST['zipcode']);
+	$city = mysqli_real_escape_string($con, $_POST['city']);
+	$accountowner = mysqli_real_escape_string($con, $_POST['accountowner']);
+	$iban = mysqli_real_escape_string($con, $_POST['iban']);
+
+	//API Url
+		$url = 'https://37f32cl571.execute-api.eu-central-1.amazonaws.com/default/wunderfleet-recruiting-backend-dev-save-payment-data';
+		 
+		//Initiate cURL.
+		$ch = curl_init($url);
+		 
+		//The JSON data.
+		$jsonData = array(
+		    'customerId' => $firstname,
+		    'iban' => $lastname,
+		    'owner' => $accountowne
+		);
+		 
+		//Encode the array into JSON.
+		$jsonDataEncoded = json_encode($jsonData);
+		 
+		//Tell cURL that we want to send a POST request.
+		curl_setopt($ch, CURLOPT_POST, 1);
+		 
+		//Attach our encoded JSON string to the POST fields.
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+		 
+		//Set the content type to application/json
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
+		
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
+		     
+		$response = curl_exec($ch);
+		$array = json_decode($response, true);
+		
+		curl_close($ch);
+
+		
+		$pdi = $array['paymentDataId'] ?? '';
+
 	$sql="INSERT INTO userRegistration 
-	(firstname, lastname, telephone, street, housenumber, zipcode, city, accountowner, iban) 
+	(firstname, lastname, telephone, street, housenumber, zipcode, city, accountowner, iban, paydataid) 
 	VALUES ('".$firstname."','".$lastname."', '".$telephone."','".$street."', '".$housenumber."', '".$zipcode."',
-	'".$city."', '".$accountowner."', '".$iban."')";
+	'".$city."', '".$accountowner."', '".$iban."', '".$pdi."')";
 
 
-	if(!$result = $con->query($sql)){
-	die('There was an error running the query [' . $conn->error . ']');
-	}
-	else
-	{
-		$thankyou = "Thank you! We will contact you soon";
-	
-	}
-	}
-	else
-	{
-		$required = "Please fill Name and Email";
-	
-	}
-
+		if(!$result = $con->query($sql)){
+		die('There was an error [' . $conn->error . ']');
+		}
+		else
+		{
+		$thankyou;
+		}
+		}
+		
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,15 +85,13 @@ include('_inc/connection.php');
 	<header>
 		<img class="logo" src="assets/img/logo.svg">
 		<br>
-        <nav>
-            Test
-        </nav>
+        <nav></nav>
     </header>
     <div class="container">
     	<div class="row">
     		<div class="col-md-12">
     			<section>
-    				<form class="form" id="localStorage" action="" method="post">
+    				<form class="form" id="localStorageForm" action="" method="post" >
 	    				<!-- form header -->
 					    <div class="form-header">
 					    	<h1>Registration Account</h1>
@@ -72,13 +101,10 @@ include('_inc/connection.php');
 					    <!-- step 1 -->
 				    	<fieldset>
 				    	<div class="tab" id="part1">
-					    	<label for="firstname" class="sr-only">First Name</label>
-						    <input type="text" name="firstname" id="firstname" class="form-control stored" placeholder="First name" onkeyup="saveValue(this);"  required="" autofocus>
+						    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="* First name" onkeyup = "saveValue(this);"  required>
 						    <br>
-						    <label for="lastname" class="sr-only">Last Name</label>
-						    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last name" onkeyup="saveValue(this);" required>
+						    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="* Last name" onkeyup="saveValue(this);" required>
 						    <br>
-						    <label for="telephone" class="sr-only">Telephone</label>
 						    <input name="telephone" id="telephone" type="text" class="form-control" pattern="[+ 0-9]{14}" placeholder="Phone number" onkeyup="saveValue(this);" required>
 					    </div>
 					    <br>
@@ -92,22 +118,18 @@ include('_inc/connection.php');
 					    <div class="tab" id="part2">
 					    	<div class="col-md-12">
 							    <div class="inline col-md-8">
-						    	<label for="address" class="sr-only">Street</label>
 							    <input type="text" name="street" id="street" class="form-control" placeholder="Street" onkeyup="saveValue(this);" required>
 							    </div>
 							    <div class="inline col-md-3">
-							    <label for="lastname" class="sr-only">House number</label>
 							    <input type="text" name="housenumber" id="housenumber" class="form-control" placeholder="House number" onkeyup="saveValue(this);" required>
 							    </div>
 					    	</div>
 					    	<br>
 					    	<div class="col-md-12">
 							    <div class="inline col-md-3">
-						    	<label for="zipcode" class="sr-only">Zip code</label>
 							    <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zip Code" onkeyup="saveValue(this);" required>
 							    </div>
 							    <div class="inline col-md-8">
-							    <label for="city" class="sr-only">City</label>
 							    <input type="text" name="city" id="city" class="form-control" placeholder="City" onkeyup="saveValue(this);" required>
 							    </div>
 							</div>
@@ -122,11 +144,9 @@ include('_inc/connection.php');
 						<div class="divs" id="third">
 					    <fieldset>
 				    	<div class="tab" id="part3">
-					    	<label for="accountowner" class="sr-only">Account owner</label>
-						    <input type="text" name="accountowner" id="accountowner" class="form-control" placeholder="Account owner" onkeyup="saveValue(this);" required>
+						    <input type="text" name="accountowner" id="accountowner" class="form-control" placeholder="* Account owner" onkeyup="saveValue(this);" required>
 						    <br>
-						    <label for="iban" class="sr-only">IBAN</label>
-						    <input type="text" name="iban" id="iban" class="form-control" placeholder="IBAN" onkeyup="saveValue(this);" required>
+						    <input type="text" name="iban" id="iban" class="form-control" placeholder="* IBAN" onkeyup="saveValue(this);" required>
 						    <br>   
 					    </div>
 					    <br>
@@ -135,20 +155,29 @@ include('_inc/connection.php');
 					    </fieldset>
 						</div>
 						<!-- end step 3 -->
-						<!-- step 3 -->
+						<!-- step 4 -->
 						<div class="divs" id="forth">
 					    <fieldset>
 				    	<div class="tab" id="part4">
-				    		
-					    	<div class="succes">Thanks</div>
-					    	<div>Your PaymentDataId is: </div>
-						    <br>   
+						    <br>  
+						    <div class="pdi">
+						    <?php 
+						    if (!isset($pdi))
+								{
+								  echo "<div>Your PaymentDataId is: </div>
+						    			<br>  
+						    			<div class='pdi'>";
+						    	  echo $pdi;
+								} 
+						    ?>
+						    </div>
+						    <br>
 						    <input type="button" name="next" id="btn-four" class="next action-button" value="Thanks" />
 					    </div>
 					    <br>
 					    </fieldset>
 						</div>
-						<!-- end step 3 -->
+						<!-- end step 4 -->
 					</form>
 				</section>
 		    </div>
