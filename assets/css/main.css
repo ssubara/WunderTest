@@ -92,3 +92,7 @@ margin: 10px 5px;
 #localStorageForm  .action-button:hover, #localStorage  .action-button:focus {
 box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
+
+#localStorageForm  .action-button:disabled {
+    opacity: 0.2;
+}

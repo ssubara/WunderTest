@@ -21,9 +21,9 @@ include('_inc/connection.php');
 		 
 		//The JSON data.
 		$jsonData = array(
-		    'customerId' => $firstname,
-		    'iban' => $lastname,
-		    'owner' => $accountowne
+		    'customerId' => 'Slaven',
+		    'iban' => '11',
+		    'owner' => 'slaven'
 		);
 		 
 		//Encode the array into JSON.
@@ -101,9 +101,9 @@ include('_inc/connection.php');
 					    <!-- step 1 -->
 				    	<fieldset>
 				    	<div class="tab" id="part1">
-						    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="* First name" onkeyup = "saveValue(this);"  required>
+						    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="* First name" onkeyup = "saveValue(this);">
 						    <br>
-						    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="* Last name" onkeyup="saveValue(this);" required>
+						    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="* Last name" onkeyup="saveValue(this);">
 						    <br>
 						    <input name="telephone" id="telephone" type="text" class="form-control" pattern="[+ 0-9]{14}" placeholder="Phone number" onkeyup="saveValue(this);" required>
 					    </div>
@@ -162,7 +162,7 @@ include('_inc/connection.php');
 						    <br>  
 						    <div class="pdi">
 						    <?php 
-						    if (!isset($pdi))
+						    if (isset($pdi))
 								{
 								  echo "<div>Your PaymentDataId is: </div>
 						    			<br>  
@@ -172,7 +172,7 @@ include('_inc/connection.php');
 						    ?>
 						    </div>
 						    <br>
-						    <input type="button" name="next" id="btn-four" class="next action-button" value="Thanks" />
+						    <input type="button" name="" id="btn-four" class=" action-button" value="Thanks" />
 					    </div>
 					    <br>
 					    </fieldset>
