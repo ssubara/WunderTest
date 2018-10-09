@@ -21,7 +21,7 @@ if ($con->connect_error) {
     echo "Error: " . $con->connect_error;
 	exit();
 }
-echo 'Connected to MySQL';
+
 
 //time zone
 date_default_timezone_set('Europe/Belgrade');
