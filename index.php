@@ -1,5 +1,10 @@
 <?php
 include('_inc/connection.php');
+$result = mysqli_query($con, "SELECT id FROM userRegistration ORDER BY id DESC LIMIT 1;");
+while ($row = $result->fetch_assoc()) {
+	$nextid = $row['id']+1;
+    }
+
 	if((isset($_POST['firstname'])&& $_POST['lastname'] !='')&&(isset($_POST['accountowner'])&& $_POST['iban'] !=''))
 	{
 	
@@ -21,9 +26,9 @@ include('_inc/connection.php');
 		 
 		//The JSON data.
 		$jsonData = array(
-		    'customerId' => 'Slaven',
-		    'iban' => '11',
-		    'owner' => 'slaven'
+		    'customerId' => $nextid,
+		    'iban' => $iban,
+		    'owner' => $accountowner
 		);
 		 
 		//Encode the array into JSON.
@@ -56,16 +61,14 @@ include('_inc/connection.php');
 	VALUES ('".$firstname."','".$lastname."', '".$telephone."','".$street."', '".$housenumber."', '".$zipcode."',
 	'".$city."', '".$accountowner."', '".$iban."', '".$pdi."')";
 
-
 		if(!$result = $con->query($sql)){
-		die('There was an error [' . $conn->error . ']');
+		die('There was an error [' . $con->error . ']');
 		}
 		else
-		{
-		$thankyou;
-		}
-		}
-		
+			{
+			$thankyou;
+			}
+		}	
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,14 +77,9 @@ include('_inc/connection.php');
 	<title>Wunder Test app</title>
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
-
 	<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.steps.js"></script>
-
 </head>
 <body class="text-center">
-
 	<header>
 		<img class="logo" src="assets/img/logo.svg">
 		<br>
@@ -105,9 +103,9 @@ include('_inc/connection.php');
 						    <br>
 						    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="* Last name" onkeyup="saveValue(this);">
 						    <br>
-						    <input name="telephone" id="telephone" type="text" class="form-control" pattern="[+ 0-9]{14}" placeholder="Phone number" onkeyup="saveValue(this);" required>
+						    <input name="telephone" id="telephone" type="text" class="form-control" pattern="[+ 0-9]{14}" placeholder="Phone number" onkeyup="saveValue(this);">
 					    </div>
-					    <br>
+					    <br>					    
 					    <input type="button" name="next" id="btn-first" class="next action-button" value="Next" />
 						</fieldset>	    
 						</div>
@@ -118,19 +116,19 @@ include('_inc/connection.php');
 					    <div class="tab" id="part2">
 					    	<div class="col-md-12">
 							    <div class="inline col-md-8">
-							    <input type="text" name="street" id="street" class="form-control" placeholder="Street" onkeyup="saveValue(this);" required>
+							    <input type="text" name="street" id="street" class="form-control" placeholder="Street" onkeyup="saveValue(this);">
 							    </div>
 							    <div class="inline col-md-3">
-							    <input type="text" name="housenumber" id="housenumber" class="form-control" placeholder="House number" onkeyup="saveValue(this);" required>
+							    <input type="text" name="housenumber" id="housenumber" class="form-control" placeholder="House number" onkeyup="saveValue(this);">
 							    </div>
 					    	</div>
 					    	<br>
 					    	<div class="col-md-12">
 							    <div class="inline col-md-3">
-							    <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zip Code" onkeyup="saveValue(this);" required>
+							    <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zip Code" onkeyup="saveValue(this);">
 							    </div>
 							    <div class="inline col-md-8">
-							    <input type="text" name="city" id="city" class="form-control" placeholder="City" onkeyup="saveValue(this);" required>
+							    <input type="text" name="city" id="city" class="form-control" placeholder="City" onkeyup="saveValue(this);">
 							    </div>
 							</div>
 					    </div>
@@ -144,9 +142,9 @@ include('_inc/connection.php');
 						<div class="divs" id="third">
 					    <fieldset>
 				    	<div class="tab" id="part3">
-						    <input type="text" name="accountowner" id="accountowner" class="form-control" placeholder="* Account owner" onkeyup="saveValue(this);" required>
+						    <input type="text" name="accountowner" id="accountowner" class="form-control" placeholder="* Account owner" onkeyup="saveValue(this);">
 						    <br>
-						    <input type="text" name="iban" id="iban" class="form-control" placeholder="* IBAN" onkeyup="saveValue(this);" required>
+						    <input type="text" name="iban" id="iban" class="form-control" placeholder="* IBAN" onkeyup="saveValue(this);">
 						    <br>   
 					    </div>
 					    <br>
@@ -183,15 +181,10 @@ include('_inc/connection.php');
 		    </div>
 	    </div>
 	</div>
-
 	<footer class="page-footer">
         <p>Copyright Slaven Subara 2018.</p>
 	</footer>
 </body>
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-
 <script type="text/javascript" src="assets/js/main.js"></script>
-<script type="text/javascript" src="assets/js/jquery.easing.min.js"></script>
-
-
 </html>
