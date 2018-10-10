@@ -1,6 +1,5 @@
 <?php
 include('_inc/connection.php');
-$nextid =0;
 $result = mysqli_query($con, "SELECT id FROM userRegistration ORDER BY id DESC LIMIT 1;");
 while ($row = $result->fetch_assoc()) {
 	$nextid = $row['id']+1;
@@ -167,6 +166,7 @@ while ($row = $result->fetch_assoc()) {
 						    			<br>  
 						    			<div class='pdi'>";
 						    	  echo $pdi;
+						    	  mysqli_close($con);
 								} 
 						    ?>
 						    </div>
