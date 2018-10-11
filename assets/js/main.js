@@ -30,14 +30,7 @@ return localStorage.getItem(v);
 
 /*Makes form steps and save current step in local storage */
 
-
-
-
-
-
 $(document).ready(function() {
-    
-
     
     $('#btn-first').attr('disabled',true);
     $('#firstname, #lastname').keyup(function(){
@@ -57,9 +50,6 @@ $(document).ready(function() {
 
             $('#btn-third').attr('disabled',true);
     })
-
-   
-
 
     $('.next').click(function(e) {
         e.preventDefault();
@@ -89,12 +79,9 @@ $(document).ready(function() {
         $('.divs').removeClass('active').eq(activeIndex).addClass('active')
 });
 
-
 /* END Makes form steps and save current step in local storage */
 
 /* Submit form  */
-
-
 
 var form = document.getElementById("localStorageForm");
 document.getElementById("btn-third").addEventListener("click", function () {
@@ -109,10 +96,7 @@ $(document).ready(function() {
     $('#btn-four').click(function(e) {
         e.preventDefault();
         localStorage.clear();
-        window.location.href = '';
-        
-        
-        
+        window.location.href = '';        
     });
 });
 /* END Reset local storage  */

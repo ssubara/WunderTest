@@ -1,74 +1,5 @@
 <?php
-include('_inc/connection.php');
-$result = mysqli_query($con, "SELECT id FROM userRegistration ORDER BY id DESC LIMIT 1;");
-while ($row = $result->fetch_assoc()) {
-	$nextid = $row['id']+1;
-    }
-
-	if((isset($_POST['firstname'])&& $_POST['lastname'] !='')&&(isset($_POST['accountowner'])&& $_POST['iban'] !=''))
-	{
-	
-	$firstname = mysqli_real_escape_string($con, $_POST['firstname']);
-	$lastname = mysqli_real_escape_string($con, $_POST['lastname']);
-	$telephone = mysqli_real_escape_string($con, $_POST['telephone']);
-	$street = mysqli_real_escape_string($con, $_POST['street']);
-	$housenumber = mysqli_real_escape_string($con, $_POST['housenumber']);
-	$zipcode = mysqli_real_escape_string($con, $_POST['zipcode']);
-	$city = mysqli_real_escape_string($con, $_POST['city']);
-	$accountowner = mysqli_real_escape_string($con, $_POST['accountowner']);
-	$iban = mysqli_real_escape_string($con, $_POST['iban']);
-
-	//API Url
-		$url = 'https://37f32cl571.execute-api.eu-central-1.amazonaws.com/default/wunderfleet-recruiting-backend-dev-save-payment-data';
-		 
-		//Initiate cURL.
-		$ch = curl_init($url);
-		 
-		//The JSON data.
-		$jsonData = array(
-		    'customerId' => $nextid,
-		    'iban' => $iban,
-		    'owner' => $accountowner
-		);
-		 
-		//Encode the array into JSON.
-		$jsonDataEncoded = json_encode($jsonData);
-		 
-		//Tell cURL that we want to send a POST request.
-		curl_setopt($ch, CURLOPT_POST, 1);
-		 
-		//Attach our encoded JSON string to the POST fields.
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-		 
-		//Set the content type to application/json
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
-		
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
-		     
-		$response = curl_exec($ch);
-		$array = json_decode($response, true);
-		
-		curl_close($ch);
-
-		
-		$pdi = $array['paymentDataId'] ?? '';
-
-	$sql="INSERT INTO userRegistration 
-	(firstname, lastname, telephone, street, housenumber, zipcode, city, accountowner, iban, paydataid) 
-	VALUES ('".$firstname."','".$lastname."', '".$telephone."','".$street."', '".$housenumber."', '".$zipcode."',
-	'".$city."', '".$accountowner."', '".$iban."', '".$pdi."')";
-
-		if(!$result = $con->query($sql)){
-		die('There was an error [' . $con->error . ']');
-		}
-		else
-			{
-			$thankyou;
-			}
-		}	
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,10 +20,10 @@ while ($row = $result->fetch_assoc()) {
     	<div class="row">
     		<div class="col-md-12">
     			<section>
-    				<form class="form" id="localStorageForm" action="" method="post" >
+    				<form class="form" id="localStorageForm" action="post.php" method="post" >
 	    				<!-- form header -->
 					    <div class="form-header">
-					    	<h1>Registration Account</h1>
+					    	<h1>Registration Account1</h1>
 					    </div>
 					    <!-- form body -->
 		    			<div class="divs active" id="first">
@@ -157,17 +88,15 @@ while ($row = $result->fetch_assoc()) {
 						<div class="divs" id="forth">
 					    <fieldset>
 				    	<div class="tab" id="part4">
-						    <br>  
+						    <br>     
 						    <div class="pdi">
 						    <?php 
-						    if (isset($pdi))
-								{
-								  echo "<div>Your PaymentDataId is: </div>
-						    			<br>  
-						    			<div class='pdi'>";
-						    	  echo $pdi;
-						    	  mysqli_close($con);
-								} 
+						    if(!empty($_SESSION)){
+								    echo $_SESSION['pdi1'];
+								  }else{
+								    echo "We have some problems. Please try later";
+								  }
+						 	session_unset();
 						    ?>
 						    </div>
 						    <br>
